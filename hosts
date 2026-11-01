@@ -1,0 +1,204 @@
+# Title: franciscoronel/adblocklist
+#
+# Ad, ad-mediation and offer-wall hosts used by Android apps that front their ads through
+# TradPlus and mediate to AppLovin MAX, Pangle (TikTok), Unity Ads, Vungle and SafeDK.
+# Every entry is a host literal that a shipping, store-signed app actually references in its
+# own string/asset tables — not a hand-picked "popular ad domains" list.
+# Format follows https://github.com/StevenBlack/hosts
+#
+# Date: 1 November 2026 14:58:43 (UTC)
+# Number of unique domains: 105
+#
+# Fetch the latest version of this file: https://raw.githubusercontent.com/franciscoronel/adblocklist/main/hosts
+# Project home page: https://github.com/franciscoronel/adblocklist
+# License: MIT
+#
+# ===============================================================
+
+127.0.0.1 localhost
+127.0.0.1 localhost.localdomain
+127.0.0.1 local
+255.255.255.255 broadcasthost
+::1 localhost
+::1 ip6-localhost
+::1 ip6-loopback
+fe80::1%lo0 localhost
+ff00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+0.0.0.0 0.0.0.0
+
+# Custom host records are listed here.
+
+
+# End of custom host records.
+# Start ad hosts
+
+#=====================================
+# Title: ad, ad-mediation and offer-wall hosts
+# Evidence: host literals inside a store-signed APK's string/asset tables (TradPlus, AppLovin
+#   MAX, Pangle, Unity Ads, Vungle, AdMob, SafeDK), cross-checked against live device DNS
+#   captures.
+# Scope: advertising, mediation and offer-wall only. The app's own API / video / CDN / player
+#   hosts are deliberately NOT listed (see the do-not-block note at the end).
+
+
+# -------------------------------------
+# TRADPLUS MEDIATION  (block these first)  (29)
+# -------------------------------------
+0.0.0.0 adx-event.tradplusad.com
+0.0.0.0 adx.tradplusad.com
+0.0.0.0 api.tradplusad.com
+0.0.0.0 bidder.tradplusad.com
+0.0.0.0 callback.tradplusad.com
+0.0.0.0 cn-adx-event.tradplusad.com
+0.0.0.0 cn-api.tradplusad.com
+0.0.0.0 cn-bidder.tradplusad.com
+0.0.0.0 cn-crosspro-api.tradplusad.com
+0.0.0.0 cn-crosspro-event.tradplusad.com
+0.0.0.0 cn-event.tradplusad.com
+0.0.0.0 crosspro-api.tradplusad.com
+0.0.0.0 crosspro-track.tradplusad.com
+0.0.0.0 event.tradplusad.com
+0.0.0.0 test-adx-event.tradplusad.com
+0.0.0.0 test-adx.tradplusad.com
+0.0.0.0 test-api.tradplusad.com
+0.0.0.0 test-bidder.tradplusad.com
+0.0.0.0 test-callback.tradplusad.com
+0.0.0.0 test-cn-adx-event.tradplusad.com
+0.0.0.0 test-cn-api.tradplusad.com
+0.0.0.0 test-cn-bidder.tradplusad.com
+0.0.0.0 test-cn-crosspro-api.tradplusad.com
+0.0.0.0 test-cn-crosspro-event.tradplusad.com
+0.0.0.0 test-cn-event.tradplusad.com
+0.0.0.0 test-crosspro-api.tradplusad.com
+0.0.0.0 test-crosspro-track.tradplusad.com
+0.0.0.0 test-event.tradplusad.com
+0.0.0.0 www.tradplusad.com
+
+# -------------------------------------
+# GOOGLE AD MOB  (6)
+# -------------------------------------
+0.0.0.0 googleads.g.doubleclick.net
+0.0.0.0 pagead2.googlesyndication.com
+0.0.0.0 pubads.g.doubleclick.net
+0.0.0.0 static.doubleclick.net
+0.0.0.0 tpc.googlesyndication.com
+0.0.0.0 www.googletagservices.com
+
+# -------------------------------------
+# APPLOVIN (MAX)  (32)
+# -------------------------------------
+0.0.0.0 a.applovin.com
+0.0.0.0 a.applvn.com
+0.0.0.0 a4.applovin.com
+0.0.0.0 a4.applvn.com
+0.0.0.0 assets.applovin.com
+0.0.0.0 b.applovin.com
+0.0.0.0 d.applovin.com
+0.0.0.0 d.applvn.com
+0.0.0.0 dash.applovin.com
+0.0.0.0 img.applovin.com
+0.0.0.0 md.applovin.com
+0.0.0.0 md.applvn.com
+0.0.0.0 monetization-support.applovin.com
+0.0.0.0 ms.applovin.com
+0.0.0.0 ms.applvn.com
+0.0.0.0 ms4.applovin.com
+0.0.0.0 ms4.applvn.com
+0.0.0.0 pdn.applovin.com
+0.0.0.0 prod-a.applovin.com
+0.0.0.0 res.applovin.com
+0.0.0.0 res1.applovin.com
+0.0.0.0 res2.applovin.com
+0.0.0.0 res3.applovin.com
+0.0.0.0 rt.applovin.com
+0.0.0.0 rt.applvn.com
+0.0.0.0 stage-assets.applovin.com
+0.0.0.0 stage-img.applovin.com
+0.0.0.0 stage-pdn.applovin.com
+0.0.0.0 stage-vid.applovin.com
+0.0.0.0 sts.applovin.com
+0.0.0.0 vid.applovin.com
+0.0.0.0 www.applovin.com
+
+# -------------------------------------
+# PANGLE (TikTok)  (9)
+# -------------------------------------
+0.0.0.0 api16-access-sg.pangle.io
+0.0.0.0 api16-access-ttp-b.tiktokpangle-b.us
+0.0.0.0 api16-access-ttp-b.tiktokpangle.us
+0.0.0.0 api16-access-ttp.tiktokpangle-b.us
+0.0.0.0 api16-access-ttp.tiktokpangle.us
+0.0.0.0 gecko16-normal-useast5.tiktokv.us
+0.0.0.0 lf-static.tiktokpangle-cdn-us.com
+0.0.0.0 mediation-sg.pangle.io
+0.0.0.0 www.pangleglobal.com
+
+# -------------------------------------
+# UNITY ADS  (11)
+# -------------------------------------
+0.0.0.0 auction-banner.unityads.unity3d.com
+0.0.0.0 auction-load-tpsc.unityads.unity3d.com
+0.0.0.0 auction-load.unityads.unity.cn
+0.0.0.0 auction-load.unityads.unity3d.com
+0.0.0.0 auction.unityads.unity.cn
+0.0.0.0 auction.unityads.unity3d.com
+0.0.0.0 cdn-creatives-cf-prd.acquire.unity3dusercontent.com
+0.0.0.0 gateway.unityads.unity3d.com
+0.0.0.0 scar.unityads.unity3d.com
+0.0.0.0 unityads.unity3d.com
+0.0.0.0 webview.unityads.unity3d.com
+
+# -------------------------------------
+# VUNGLE  (7)
+# -------------------------------------
+0.0.0.0 adx-stage.ads.vungle.com
+0.0.0.0 adx.ads.vungle.com
+0.0.0.0 api.vungle.com
+0.0.0.0 config.ads.vungle.com
+0.0.0.0 events.ads.vungle.com
+0.0.0.0 logs.ads.vungle.com
+0.0.0.0 privacy.vungle.com
+
+# -------------------------------------
+# SAFEDK OFFER-WALL  (source of the sponsored auto-installs)  (2)
+# -------------------------------------
+0.0.0.0 config.safedk.com
+0.0.0.0 edge.safedk.com
+
+# -------------------------------------
+# Declared only in the mediation waterfall config (no live sub-domain literal in the APK)  (9)
+# -------------------------------------
+0.0.0.0 bidmachine.io
+0.0.0.0 chartboost.com
+0.0.0.0 inmobi.com
+0.0.0.0 inmobicdn.net
+0.0.0.0 inner-active.com
+0.0.0.0 ironsource.net
+0.0.0.0 ironsourcedelivery.net
+0.0.0.0 moloco.com
+0.0.0.0 tradplusad.com
+
+# --------------------------------=====
+# TELEMETRY / MEASUREMENT - commented out; blocking these is safe for app behaviour but
+# silences the host app's own Firebase/Crashlytics reporting. Uncomment to block.
+# --------------------------------=====
+# 0.0.0.0 firebase-settings.crashlytics.com
+# 0.0.0.0 firebaseinstallations.googleapis.com
+# 0.0.0.0 firebaseremoteconfig.googleapis.com
+# 0.0.0.0 firebaseremoteconfigrealtime.googleapis.com
+
+# --------------------------------=====
+# DO NOT BLOCK - the host app's own playback / API / publisher infrastructure.
+# No hostnames are listed here on purpose: this file stays app-agnostic. The rule is
+# what matters - a host that serves an app's own API, config, static assets, video CDN,
+# load balancers or player licence must never be added here, because blocking those
+# breaks the app instead of the ads.
+# Same reason there are no IP ranges or CIDRs in this file: ad-network infrastructure
+# and app infrastructure share the same cloud address space (measured on Tencent Cloud),
+# so an address-range rule would hit both.
+
+# End ad hosts
