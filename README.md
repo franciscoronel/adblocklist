@@ -102,6 +102,15 @@ A filtering resolver answers `0.0.0.0`, a plain resolver answers NXDOMAIN — th
 proves a regex covers the whole family, including sub-domains added later. Run the host app's own
 API/CDN hosts in the same batch to prove there is no false match.
 
+Gap check worth running before you import this list (measured 2026-11-02 against a Pi-hole already
+subscribing mainstream blocklists): it already answered `0.0.0.0` for the apex families here —
+`ads.inmobi.com`, `config.inmobi.com`, `an.facebook.com`, `ad.doubleclick.net` — but left
+unanswered (real IPs) for `api.mintegral.com`, `api.ssdk.cn`, `api.tapjoy.com`, `api2.facebook.com`,
+`ib.snssdk.com`, `jsb.snssdk.com`, `mon-bd-johor.byteintlapi.com`, `mon.zijieapi.com`,
+`gateway-b.offerwall.unity3d.com` and `aps-webhandler.appsflyer.com`. That is the concrete reason
+this file exists: the adapter and ByteDance-side hosts of these SDKs are not on mainstream lists,
+even when the network's apex is.
+
 ## Three things a blocklist cannot do
 
 1. **The device must actually use the filter.** A rule on a resolver changes nothing for a device
