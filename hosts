@@ -32,8 +32,9 @@
 0.0.0.0 www.tradplusad.com
 
 # -------------------------------------
-# GOOGLE AD MOB  (6)
+# GOOGLE AD MOB  (7)
 # -------------------------------------
+0.0.0.0 ad.doubleclick.net
 0.0.0.0 googleads.g.doubleclick.net
 0.0.0.0 pagead2.googlesyndication.com
 0.0.0.0 pubads.g.doubleclick.net
@@ -78,20 +79,56 @@
 0.0.0.0 www.applovin.com
 
 # -------------------------------------
-# PANGLE (TikTok)  (9)
+# APPLOVIN MAX MEDIATION ADAPTERS - the networks a MAX waterfall fans out to  (3)
+# The adapter bundles carry no host literal (META-INF/com/applovin/mediation/*-adapter); these
+# endpoints were found by DNS, so a MAX-fronted app is covered even with no TradPlus rule.
+# Facebook AN deliberately limited to these two names - see README (login/share must stay open).
 # -------------------------------------
+0.0.0.0 an.facebook.com
+0.0.0.0 api.mintegral.com
+0.0.0.0 api2.facebook.com
+
+# -------------------------------------
+# PANGLE (TikTok)  (21)
+# ad serving + mediation endpoints + the SDK's own ad/app monitoring (mon./log. hosts)
+# -------------------------------------
+0.0.0.0 analytics-sg.tiktok.com
+0.0.0.0 analytics.tiktok.com
 0.0.0.0 api16-access-sg.pangle.io
 0.0.0.0 api16-access-ttp-b.tiktokpangle-b.us
 0.0.0.0 api16-access-ttp-b.tiktokpangle.us
 0.0.0.0 api16-access-ttp.tiktokpangle-b.us
 0.0.0.0 api16-access-ttp.tiktokpangle.us
 0.0.0.0 gecko16-normal-useast5.tiktokv.us
+0.0.0.0 ib.snssdk.com
+0.0.0.0 jsb.snssdk.com
 0.0.0.0 lf-static.tiktokpangle-cdn-us.com
+0.0.0.0 log.isnssdk.com
+0.0.0.0 log.sgsnssdk.com
 0.0.0.0 mediation-sg.pangle.io
+0.0.0.0 mediation.pangle.io
+0.0.0.0 mon-bd-johor.byteintlapi.com
+0.0.0.0 mon.isnssdk.com
+0.0.0.0 mon.sgsnssdk.com
+0.0.0.0 mon.zijieapi.com
+0.0.0.0 sgsnssdk.com
 0.0.0.0 www.pangleglobal.com
 
 # -------------------------------------
-# UNITY ADS  (11)
+# INMOBI - adapter under both AppLovin MAX and the Pangle PAG waterfall  (8)
+# Live sub-domain literals from the shipped InMobi SDK string tables (all verified by DNS)
+# -------------------------------------
+0.0.0.0 ads.inmobi.com
+0.0.0.0 config.inmobi.com
+0.0.0.0 log-activity.templates.inmobi.com
+0.0.0.0 supply.inmobicdn.net
+0.0.0.0 telemetry.sdk.inmobi.com
+0.0.0.0 unif-id.ssp.inmobi.com
+0.0.0.0 vastproxy.brand.inmobi.com
+0.0.0.0 w.inmobi.com
+
+# -------------------------------------
+# UNITY ADS  (13)
 # -------------------------------------
 0.0.0.0 auction-banner.unityads.unity3d.com
 0.0.0.0 auction-load-tpsc.unityads.unity3d.com
@@ -100,6 +137,9 @@
 0.0.0.0 auction.unityads.unity.cn
 0.0.0.0 auction.unityads.unity3d.com
 0.0.0.0 cdn-creatives-cf-prd.acquire.unity3dusercontent.com
+0.0.0.0 config.unityads.unity3d.com
+0.0.0.0 fill.adserverapp.com
+0.0.0.0 gateway-b.offerwall.unity3d.com
 0.0.0.0 gateway.unityads.unity3d.com
 0.0.0.0 scar.unityads.unity3d.com
 0.0.0.0 unityads.unity3d.com
@@ -115,6 +155,31 @@
 0.0.0.0 events.ads.vungle.com
 0.0.0.0 logs.ads.vungle.com
 0.0.0.0 privacy.vungle.com
+
+# -------------------------------------
+# MOLOCO - ad CDN  (1)  (its API hosts resolve under the moloco.com apex below)
+# -------------------------------------
+0.0.0.0 cdn-f.adsmoloco.com
+
+# -------------------------------------
+# MINTIGRAL / MTG (offer-wall + video)  (2)
+# the APK names the apex bare (mtgglobals.com/load, /openapi/ad/v3); the apex has no A record,
+# so the live traffic is api.mintegral.com / api.ssdk.cn
+# -------------------------------------
+0.0.0.0 api.ssdk.cn
+0.0.0.0 mtgglobals.com
+
+# -------------------------------------
+# ATTRIBUTION / AD-SYNC  (3)
+# -------------------------------------
+0.0.0.0 aps-webhandler.appsflyer.com
+0.0.0.0 spadsync.com
+0.0.0.0 www.googleadservices.com
+
+# -------------------------------------
+# TAPJOY offer-wall (reachable through the AppLovin MAX waterfall)  (1)
+# -------------------------------------
+0.0.0.0 api.tapjoy.com
 
 # -------------------------------------
 # SAFEDK OFFER-WALL  (source of the sponsored auto-installs)  (2)
@@ -134,24 +199,3 @@
 0.0.0.0 ironsourcedelivery.net
 0.0.0.0 moloco.com
 0.0.0.0 tradplusad.com
-
-# --------------------------------=====
-# TELEMETRY / MEASUREMENT - commented out; blocking these is safe for app behaviour but
-# silences the host app's own Firebase/Crashlytics reporting. Uncomment to block.
-# --------------------------------=====
-# 0.0.0.0 firebase-settings.crashlytics.com
-# 0.0.0.0 firebaseinstallations.googleapis.com
-# 0.0.0.0 firebaseremoteconfig.googleapis.com
-# 0.0.0.0 firebaseremoteconfigrealtime.googleapis.com
-
-# --------------------------------=====
-# DO NOT BLOCK - the host app's own playback / API / publisher infrastructure.
-# No hostnames are listed here on purpose: this file stays app-agnostic. The rule is
-# what matters - a host that serves an app's own API, config, static assets, video CDN,
-# load balancers or player licence must never be added here, because blocking those
-# breaks the app instead of the ads.
-# Same reason there are no IP ranges or CIDRs in this file: ad-network infrastructure
-# and app infrastructure share the same cloud address space (measured on Tencent Cloud),
-# so an address-range rule would hit both.
-
-# End ad hosts
