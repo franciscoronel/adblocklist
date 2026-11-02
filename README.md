@@ -36,7 +36,7 @@ endpoints, found by DNS, plus an apex entry in the declared-only section.
 | APPLOVIN MAX MEDIATION ADAPTERS | 3 | `an.facebook.com`, `api2.facebook.com`, `api.mintegral.com` |
 | PANGLE (TikTok) | 21 | ad serving + mediation + the SDK's own `mon.`/`log.` ad-app monitoring |
 | INMOBI | 8 | adapter under *both* headers (live SDK sub-domains) |
-| UNITY ADS | 13 | incl. `config.unityads…`, `gateway-b.offerwall…`, `fill.adserverapp.com` |
+| UNITY ADS | 14 | incl. `config.unityads…`, `gateway-b.offerwall…`, `fill.adserverapp.com` |
 | VUNGLE | 7 | |
 | MOLOCO | 1 | `cdn-f.adsmoloco.com` (API hosts fall under the `moloco.com` apex) |
 | MINTIGRAL / MTG | 2 | `api.mintegral.com`, `api.ssdk.cn`, `mtgglobals.com` |
@@ -101,6 +101,39 @@ Verification method worth copying: query a name that cannot exist (`probe5994802
 A filtering resolver answers `0.0.0.0`, a plain resolver answers NXDOMAIN — that contrast is what
 proves a regex covers the whole family, including sub-domains added later. Run the host app's own
 API/CDN hosts in the same batch to prove there is no false match.
+
+Measured family-rule coverage on this network (2026-11-02, same Pi-hole). Some ByteDance monitoring
+names already answer `0.0.0.0` because mainstream lists carry them (`i.isnssdk.com`,
+`ichannel.isnssdk.com`, `mon-va.byteoversea.com`, `gecko16-normal-useast5.tiktokv.us`) while their
+regional twins answer with real IPs (`rtlog.isnssdk.com`, `log15.byteoversea.com`,
+`vcs-sg.byteoversea.com`, `mon16-normal-useast5.tiktokv.us`, `verification-va.tiktokv.com`,
+`libravm-nontt.byteintlapi.com`). That is the argument for the regex rules above and against an
+apex-only hosts entry: `0.0.0.0 byteoversea.com` blocks nothing here, because the apex itself returns
+NO-ANSWER while the real hosts sit under it. `tiktokv.com` and `byteintlapi.com` are deliberately
+*not* blanket-blocked: `api.tiktokv.com`, `verify-sg.tiktokv.com`, `api22-normal-c-alisg.tiktokv.com`
+carry app features, and content hosts live on `tiktokcdn.com`, `ibyteimg.com`,
+`bytegecko-i18n.com`, `i18n-pglstatp.com`, `fqnovelpic.com`, `tmtreader.com` — all left open,
+deliberately.
+
+Before believing any of this on a device, confirm the device actually queries the filter — Android has
+no per-app DNS setting, so the path is set on the device or the network. On this phone (HyperOS)
+`nslookup` is not in the shell and there is no python, and `getprop` prints no DNS entry, so read the
+path from the host side instead:
+
+```
+adb shell settings get global private_dns   # null = Private DNS unset -> DoT not in play
+adb shell settings get global http_proxy    # null = no override
+resolvectl status                           # on the LAN host: what DHCP actually handed out
+python3 -c "import socket;print(socket.getaddrinfo('rtlog.isnssdk.com',80))"   # what that path answers
+```
+
+Measured here (2026-11-02): the LAN host's resolver is `192.168.1.1` (the router) with `192.168.1.30`
+and `192.168.1.16` as extra servers and Quad9 as fallback, and through that path `a.applovin.com`,
+`rtlog.isnssdk.com`, `api.mintegral.com`, `mon16-normal-useast5.tiktokv.us` and `cdn-f.adsmoloco.com`
+all answer real IPs. So the filter is live and the list is correct, but the *default path* on this
+network bypasses it — query the filter directly (send the probe to `192.168.1.16`) to see what it
+would block. Fix the DNS path first — point the router's DHCP DNS (or the device's static DNS) at the
+filter — then tune the list. In that order, and in that order only.
 
 Gap check worth running before you import this list (measured 2026-11-02 against a Pi-hole already
 subscribing mainstream blocklists): it already answered `0.0.0.0` for the apex families here —
